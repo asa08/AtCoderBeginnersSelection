@@ -21,11 +21,81 @@ func readTwoInts() -> (a: Int, b: Int) {
     return (a: ints[0], b: ints[1])
 }
 
-
+ABC049C()
 
 // 問題
-func CardGameForTwo() {
+func Traveling() {
     
+}
+
+// 白昼夢
+func ABC049C() {
+    let words: Set = ["dream", "dreamer", "erase", "eraser"]
+    var s = readLine()!
+    while let word = words.first(where: { s.hasSuffix($0) }) {
+        s.removeLast(word.count)
+    }
+    s.isEmpty ? print("YES") : print("NO")
+}
+
+func Otoshidama() {
+    // n: 枚数, y: 金額
+    let (n, y) = readTwoInts()
+    for count10000 in 0...n {
+        for count5000 in 0 ... n {
+            let count1000 = n - count10000 - count5000
+            if count1000 >= 0, y == count10000 * 10000 + count5000 * 5000 + count1000 * 1000 {
+                print(count10000, count5000, count1000)
+                return
+            }
+        }
+    }
+    print(-1, -1, -1)
+}
+
+// botu
+//func Otoshidama() {
+//    // n: 枚数, y: 金額
+//    var (n, y) = readTwoInts()
+//    let count10000 = y / 10000
+//    y = y - count10000 * 10000
+//    let count5000 = y / 5000
+//    y = y - count5000 * 5000
+//    let count1000 = y / 1000
+//    print(count10000)
+//    print(count5000)
+//    print(count1000)
+//    if n >= [count10000, count5000, count1000].reduce(0, +) {
+//        print(count10000, count5000, count1000)
+//    } else {
+//        print(-1, -1, -1)
+//    }
+//}
+
+func KagamiMochi() {
+    let n = readInt()
+    var array: Set<Int> = []
+    for _ in 0..<n {
+        array.insert(readInt())
+    }
+    print(array.count)
+}
+
+
+func CardGameForTwo() {
+    let N = readInt()
+    var ints = readInts()
+    ints.sort { $1 < $0 }
+    var alice = 0
+    var bob = 0
+    for index in 0..<ints.count {
+        if index.isMultiple(of: 2) {
+            alice += ints[index]
+        } else {
+            bob += ints[index]
+        }
+    }
+    print(alice - bob)
 }
 
 func SomeSums() {
