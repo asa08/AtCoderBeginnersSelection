@@ -21,11 +21,44 @@ func readTwoInts() -> (a: Int, b: Int) {
     return (a: ints[0], b: ints[1])
 }
 
-ABC049C()
+func readThreeInts() -> (a: Int, b: Int, c: Int) {
+    let ints = readLine()!.split(separator: " ").map { Int(String($0))! }
+    return (a: ints[0], b: ints[1], c: ints[2])
+}
+
+Traveling()
 
 // 問題
 func Traveling() {
+    struct Pass {
+        var count: Int = 0
+        var x: Int = 0
+        var y: Int = 0
+    }
+    // 現在のpass
+    var pass = Pass()
     
+    // 回数
+    let n = readInt()
+    // 移動
+    let travels = (0..<n).map{ _ -> Pass in
+        let travel = readThreeInts()
+        return Pass(count: travel.a, x: travel.b, y: travel.c)
+    }
+    
+    for travel in travels {
+        let count = travel.count - pass.count
+        let xDiff = abs(travel.x - pass.x)
+        let yDiff = abs(travel.y - pass.y)
+        let diff = xDiff + yDiff
+        let countDiff = count - diff
+        if countDiff < 0 || !countDiff.isMultiple(of: 2) {
+            print("No")
+            return
+        }
+        pass = Pass(count: travel.count, x: travel.x, y: travel.y)
+    }
+    print("Yes")
 }
 
 // 白昼夢
